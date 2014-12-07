@@ -22,7 +22,6 @@ def select_account_holder(params=()):
         cur.execute("select * from account_holder")
     else:
         con = sql.connect("database.db")
-        con = sql.connect("database.db")
         cur = con.cursor()
         
         string = "select "
@@ -41,7 +40,6 @@ def select_contact(params=()):
         cur = con.cursor()
         cur.execute("select * from contact")
     else:
-        con = sql.connect("database.db")
         con = sql.connect("database.db")
         cur = con.cursor()
         
