@@ -1,31 +1,16 @@
+import sqlite3 as sql
 
-def 
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(120))
-    username = db.Column(db.String(80))
-    phone = db.Column(db.String(11))
-    password = db.Column(db.String(140))
-    def __init__(self,username,password,email,phone):
-        self.username = username
-        self.email = email
-        self.phone = phone
-        self.password = password
 
-    def __repr__(self):
-        return '<AccountHolder %r>' % self.username
+def insert_account_holder(email,username,phone,password):
+    con = sql.connect("database.db")
+    cur = con.cursor()
+    cur.execute("INSERT INTO account_holder (email,username,phone,password) VALUES (?,?,?,?)" [email,username,phone,password])
+    con.commit()
+    con.close()
 
-class Contact(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(120))
-    phone = db.Column(db.String(11))
-    username = db.Column(db.String(80))
-    email = db.Column(db.String(120))
-
-    def __init__(self, username, email,phone,name):
-        self.username = username
-        self.email = email
-        self.name = name
-        self.phone = phone
-
-    def __repr__(self):
-        return '<User %r>' % self.username
+def insert_contact(name,phone,username,email):
+    con = sql.connect("database.db")
+    cur = con.cursor()
+    cur.execute("INSERT INTO contact (name,phone,username,email) VALUES (?,?,?,?)" [name,phone,username,email])
+    con.commit()
+    con.close()
