@@ -1,0 +1,23 @@
+
+def 
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(120))
+    username = db.Column(db.String(80))
+    phone = db.Column(db.String(11))
+    password = db.Column(db.String(140))
+    
+class Contact(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120))
+    phone = db.Column(db.String(11))
+    username = db.Column(db.String(80))
+    email = db.Column(db.String(120))
+
+    def __init__(self, username, email,phone,name):
+        self.username = username
+        self.email = email
+        self.name = name
+        self.phone = phone
+
+    def __repr__(self):
+        return '<User %r>' % self.username
