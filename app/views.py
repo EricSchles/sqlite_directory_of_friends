@@ -30,7 +30,7 @@ def login():
 
 @app.route("/directory/<username>")
 def directory(username):
-    contacts = models.Contact.query.all()
+    contacts = select_by_username_contact(params=(username))
     return render_template("directory.html",username=username,contacts=contacts)
 
 @app.route("/info/<username>/<person>")
@@ -47,12 +47,7 @@ def add_contact(username):
 
 @app.route("/adding/<username>", methods=["GET","POST"])
 def adding(username):
-        
-    if request.form.get('name') == None:
-        flash("Please give us a name, at least")
-    else:
-        name = request.form['name']
-        
+    name = request.form['name']
     phone = request.form.get('phone')
     email = request.form.get('email')
     picture = request.form.get('picture')
