@@ -30,7 +30,7 @@ def login():
 
 @app.route("/directory/<username>")
 def directory(username):
-    contacts = select_by_username_contact(params=(username))
+    contacts = select_by_username_contact(username)
     return render_template("directory.html",username=username,contacts=contacts)
 
 @app.route("/info/<username>/<person>")
