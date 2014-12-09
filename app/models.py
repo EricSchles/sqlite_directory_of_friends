@@ -2,27 +2,25 @@ import sqlite3 as sql
 
 
 def insert_account_holder(email,username,phone,password):
-    con = sql.connect("database.db")
-    cur = con.cursor()
-    cur.execute("INSERT INTO account_holder (email,username,phone,password) VALUES (?,?,?,?)", (email,username,phone,password) )
-    con.commit()
-    con.close()
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute("INSERT INTO account_holder (email,username,phone,password) VALUES (?,?,?,?)", (email,username,phone,password) )
+        con.commit()
+    
 
 def insert_contact(name,phone,username,email):
-    con = sql.connect("database.db")
-    cur = con.cursor()
-    cur.execute("INSERT INTO contact (name,phone,username,email) VALUES (?,?,?,?)", (name,phone,username,email) )
-    con.commit()
-    con.close()
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        cur.execute("INSERT INTO contact (name,phone,username,email) VALUES (?,?,?,?)", (name,phone,username,email) )
+        con.commit()
+    
 
 def select_account_holder(params=()):
+    with sql.connect("database.db") as con:
     if params==():
-        con = sql.connect("database.db")
-        cur = con.cursor()
         cur.execute("select * from account_holder")
     else:
-        con = sql.connect("database.db")
-        cur = con.cursor()
+        
         
         string = "select "
         for i in xrange(len(params)-1):
