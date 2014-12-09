@@ -45,3 +45,9 @@ def select_contact(params=()):
 
             result = cur.execute(string)
     return result.fetchall()
+
+def select_by_username_contact(username):
+    with sql.connect("database.db") as con:
+        cur = con.cursor()
+        result = cur.execute("select * from contact where username='%s';" % username).fetchall()
+    return result
