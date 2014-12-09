@@ -32,20 +32,16 @@ def select_account_holder(params=()):
     return result.fetchall()
 
 def select_contact(params=()):
-    if params==():
-        con = sql.connect("database.db")
+    with sql.connect("database.db") as con:
         cur = con.cursor()
-        cur.execute("select * from contact")
-    else:
-        con = sql.connect("database.db")
-        cur = con.cursor()
-        
-        string = "select"
-        for i in xrange(len(params)-1):
-            string += "%s,"
-        string += "%s"
-        string += " from contact"
+        if params==():
+            cur.execute("select * from contact")
+        else:
+            string = "select"
+            for i in xrange(len(params)-1):
+                string += "%s,"
+            string += "%s"
+            string += " from contact"
 
-        result = cur.execute(string)
-        con.close()
-        return result.fetchall()
+            result = cur.execute(string)
+    return result.fetchall()
