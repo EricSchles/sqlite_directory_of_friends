@@ -17,20 +17,19 @@ def insert_contact(name,phone,username,email):
 
 def select_account_holder(params=()):
     with sql.connect("database.db") as con:
-    if params==():
-        cur.execute("select * from account_holder")
-    else:
+        cur = con.cursor()
+        if params==():
+            cur.execute("select * from account_holder")
+        else:
+            string = "select "
+            for i in xrange(len(params)-1):
+                string += "%s,"
+            string += "%s"
+            string += " from account_holder"
+            print string
+            result = cur.execute(string % params)
         
-        
-        string = "select "
-        for i in xrange(len(params)-1):
-            string += "%s,"
-        string += "%s"
-        string += " from account_holder"
-        print string
-        result = cur.execute(string % params)
-        con.close()
-        return result.fetchall()
+    return result.fetchall()
 
 def select_contact(params=()):
     if params==():
