@@ -1,6 +1,6 @@
 from app import app
 from flask import render_template,redirect, request, flash,g,session,url_for
-import models
+from models import *
 
 @app.route("/",methods=["GET","POST"])
 @app.route("/index",methods=["GET","POST"])
@@ -14,33 +14,14 @@ def signup():
 
 @app.route("/signedup", methods=["GET","POST"])
 def signedup():
-
-    if request.form.get('email') == None:
-        flash("Please provide an email")
-    else:
-        email = request.form['email']
     
-    if request.form.get('username') == None:
-        flash("Please think of a username")
-    else:
-        username = request.form['username']
-    
-    if request.form.get('password') == None:
-        flash("Please come up with a password")
-    else:
-        password = request.form['password']
-    
+    email = request.form['email']
+    username = request.form['username']
+    password = request.form['password']
     phone = request.form.get('phone')
-    
-    picture = request.form.get('picture')
 
     if not session.get("logged_in"):
-        models.db.create_all()
-        new_user = models.AccountHolder(username,password,email,phone)
-            
-        models.db.session.add(new_user)
-        models.db.session.commit()
-    
+        insert_account_holder(email,username,phone,password)
     return render_template("homepage.html",username=username) 
 
 @app.route("/login")
